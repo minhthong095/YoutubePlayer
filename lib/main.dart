@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:youtube_player/ripple_play.dart';
 import 'package:youtube_player/show_case_page.dart';
 
 void main() {
@@ -14,58 +15,92 @@ class MyApp extends StatelessWidget {
         SystemUiOverlayStyle(statusBarBrightness: Brightness.dark));
 
     return MaterialApp(
-      home: ShowCasePage(),
+      home: Scaffold(backgroundColor: Colors.black, body: ShowCasePage()),
     );
   }
 }
 
-class TestLateFinal extends StatefulWidget {
+class CustomiseRipplePlay extends StatefulWidget {
   @override
-  _TestLateFinalState createState() => _TestLateFinalState();
+  _CustomiseRipplePlayState createState() => _CustomiseRipplePlayState();
 }
 
-class _TestLateFinalState extends State<TestLateFinal> {
-  late final double e;
+class _CustomiseRipplePlayState extends State<CustomiseRipplePlay>
+    with TickerProviderStateMixin {
+  late final AnimationController _animationControllerBorder;
+  late final AnimationController _animationControllerCircle;
+  late final Animation<Color?> _animationBorder;
+  late final Animation<Color?> _animationCircle;
+
   @override
   void initState() {
+    _animationControllerBorder =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    _animationControllerCircle =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 400));
+    _animationBorder = TweenSequence([
+      TweenSequenceItem(
+          tween: ColorTween(begin: Colors.transparent, end: Color(0x45ffffff)),
+          weight: 50),
+      TweenSequenceItem(
+          tween: ColorTween(begin: Color(0x45ffffff), end: Colors.transparent)
+              .chain(CurveTween(curve: Curves.ease)),
+          weight: 50)
+    ]).animate(_animationControllerBorder);
+    _animationCircle = TweenSequence([
+      TweenSequenceItem(
+          tween: ColorTween(begin: Colors.transparent, end: Color(0x20ffffff)),
+          weight: 50),
+      TweenSequenceItem(
+          tween: ColorTween(begin: Color(0x20ffffff), end: Colors.transparent),
+          weight: 50)
+    ]).animate(_animationControllerCircle);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: GestureDetector(
+    return GestureDetector(
       onTap: () {
-        setState(() {});
+        _animationControllerBorder.reset();
+        _animationControllerCircle.reset();
+        _animationControllerBorder.forward();
+        _animationControllerCircle.forward();
       },
-      child: Container(
-        color: Colors.red,
-        child: Center(
-          child: _TestLateFinal2State(),
+      child: SizedBox(
+        height: 100,
+        width: 100,
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: AnimatedBuilder(
+                animation: _animationControllerBorder,
+                builder: (_, __) => DecoratedBox(
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                          color: _animationBorder.value!,
+                          width: kBorderWidthRipple)),
+                ),
+              ),
+            ),
+            Positioned(
+              left: kBorderWidthRipple,
+              right: kBorderWidthRipple,
+              top: kBorderWidthRipple,
+              bottom: kBorderWidthRipple,
+              child: AnimatedBuilder(
+                animation: _animationControllerCircle,
+                builder: (_, __) => DecoratedBox(
+                    decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: _animationCircle.value,
+                )),
+              ),
+            ),
+          ],
         ),
       ),
-    ));
-  }
-}
-
-class _TestLateFinal2State extends StatelessWidget {
-  late final A e;
-
-  @override
-  Widget build(BuildContext context) {
-    String;
-    e = A();
-    print('hash ' + e.hashCode.toString());
-    return Container(
-      width: 500,
-      height: 500,
-      color: Colors.blue,
     );
-  }
-}
-
-class A {
-  A() {
-    print('hehe');
   }
 }

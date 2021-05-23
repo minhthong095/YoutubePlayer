@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const _kBorderWidthRipple = 1.5;
+
 class PlayButtonYoutube extends StatefulWidget {
   final double size;
   final bool isStop;
@@ -9,10 +11,80 @@ class PlayButtonYoutube extends StatefulWidget {
 }
 
 class _PlayButtonYoutubeState extends State<PlayButtonYoutube>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late final _animationController =
-      AnimationController(vsync: this, duration: Duration(milliseconds: 150));
+      AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+  late final AnimationController _animationControllerBorder =
+      AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+  late final AnimationController _animationControllerCircle =
+      AnimationController(vsync: this, duration: Duration(milliseconds: 400));
+  late final Animation<Color?> _animationBorder = TweenSequence([
+    TweenSequenceItem(
+        tween: ColorTween(begin: Colors.transparent, end: Color(0x45ffffff)),
+        weight: 50),
+    TweenSequenceItem(
+        tween: ColorTween(begin: Color(0x45ffffff), end: Colors.transparent)
+            .chain(CurveTween(curve: Curves.ease)),
+        weight: 50)
+  ]).animate(_animationControllerBorder);
+  late final Animation<Color?> _animationCircle = TweenSequence([
+    TweenSequenceItem(
+        tween: ColorTween(begin: Colors.transparent, end: Color(0x20ffffff)),
+        weight: 50),
+    TweenSequenceItem(
+        tween: ColorTween(begin: Color(0x20ffffff), end: Colors.transparent),
+        weight: 50)
+  ]).animate(_animationControllerCircle);
   late final _isStop = widget.isStop;
+  late final paddingLeftRightPlay = 0.1907216495 * widget.size;
+  late final xAD = Tween<double>(
+      begin: _isStop ? 0.0 : 0.1907216495 * widget.size,
+      end: _isStop ? 0.1907216495 * widget.size : 0.0);
+  late final yA = Tween<double>(
+      begin: _isStop ? 0.0 : 0.0618556701 * widget.size,
+      end: _isStop ? 0.0618556701 * widget.size : 0.0);
+  late final xBC = Tween<double>(
+      begin: _isStop
+          ? .456903039837 * widget.size
+          : 0.1237113402 * widget.size + paddingLeftRightPlay,
+      end: _isStop
+          ? 0.1237113402 * widget.size + paddingLeftRightPlay
+          : .456903039837 * widget.size);
+  late final yB = Tween<double>(
+      begin: _isStop ? .25 * widget.size : 0.0618556701 * widget.size,
+      end: _isStop ? 0.0618556701 * widget.size : .25 * widget.size);
+  late final yC = Tween<double>(
+      begin: _isStop ? .75 * widget.size : 0.9381443299 * widget.size,
+      end: _isStop ? 0.9381443299 * widget.size : .75 * widget.size);
+  late final yD = Tween<double>(
+      begin: _isStop ? widget.size : 0.9381443299 * widget.size,
+      end: _isStop ? 0.9381443299 * widget.size : widget.size);
+  late final xEH = Tween<double>(
+      begin: _isStop
+          ? .456903039837 * widget.size - .2
+          : 0.4948453608 * widget.size + paddingLeftRightPlay,
+      end: _isStop
+          ? 0.4948453608 * widget.size + paddingLeftRightPlay
+          : .456903039837 * widget.size - .2);
+  late final yE = Tween<double>(
+      begin: _isStop ? .25 * widget.size : 0.0618556701 * widget.size,
+      end: _isStop ? 0.0618556701 * widget.size : .25 * widget.size);
+  late final xFG = Tween<double>(
+      begin: _isStop
+          ? (.456903039837 * widget.size) * 2 - .2
+          : 0.618556701 * widget.size + paddingLeftRightPlay,
+      end: _isStop
+          ? 0.618556701 * widget.size + paddingLeftRightPlay
+          : (.456903039837 * widget.size) * 2 - .2);
+  late final yF = Tween<double>(
+      begin: _isStop ? .5 * widget.size : 0.0618556701 * widget.size,
+      end: _isStop ? 0.0618556701 * widget.size : .5 * widget.size);
+  late final yG = Tween<double>(
+      begin: _isStop ? .5 * widget.size : 0.9381443299 * widget.size,
+      end: _isStop ? 0.9381443299 * widget.size : .5 * widget.size);
+  late final yH = Tween<double>(
+      begin: _isStop ? .75 * widget.size : 0.9381443299 * widget.size,
+      end: _isStop ? 0.9381443299 * widget.size : .75 * widget.size);
 
   @override
   void dispose() {
@@ -27,17 +99,66 @@ class _PlayButtonYoutubeState extends State<PlayButtonYoutube>
     } else if (_animationController.isCompleted) {
       _animationController.reverse();
     }
+    _animationControllerBorder.reset();
+    _animationControllerCircle.reset();
+    _animationControllerBorder.forward();
+    _animationControllerCircle.forward();
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      size: Size(widget.size, widget.size),
-      painter: _PlayYoutubePainter(
-          isStopFirst: _isStop,
-          size: widget.size,
-          animation: _animationController),
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: AnimatedBuilder(
+            animation: _animationControllerBorder,
+            builder: (_, __) => DecoratedBox(
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                      color: _animationBorder.value!,
+                      width: _kBorderWidthRipple)),
+            ),
+          ),
+        ),
+        Positioned(
+          left: _kBorderWidthRipple,
+          right: _kBorderWidthRipple,
+          top: _kBorderWidthRipple,
+          bottom: _kBorderWidthRipple,
+          child: AnimatedBuilder(
+            animation: _animationControllerCircle,
+            builder: (_, __) => DecoratedBox(
+                decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: _animationCircle.value,
+            )),
+          ),
+        ),
+        SizedBox(
+          width: widget.size,
+          height: widget.size,
+          child: CustomPaint(
+            painter: _PlayYoutubePainter(
+                xAD: xAD,
+                yA: yA,
+                xBC: xBC,
+                yB: yB,
+                yC: yC,
+                yD: yD,
+                xEH: xEH,
+                yE: yE,
+                xFG: xFG,
+                yF: yF,
+                yG: yG,
+                yH: yH,
+                isStopFirst: _isStop,
+                size: widget.size,
+                animation: _animationController),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -46,8 +167,35 @@ class _PlayYoutubePainter extends CustomPainter {
   final AnimationController animation;
   final double size;
   final bool isStopFirst;
+  final Tween<double> xAD;
+  final Tween<double> yA;
+  final Tween<double> xBC;
+  final Tween<double> yB;
+  final Tween<double> yC;
+  final Tween<double> yD;
+  final Tween<double> xEH;
+  final Tween<double> yE;
+  final Tween<double> xFG;
+  final Tween<double> yF;
+  final Tween<double> yG;
+  final Tween<double> yH;
+
   _PlayYoutubePainter(
-      {required this.animation, required this.size, required this.isStopFirst})
+      {required this.xAD,
+      required this.yA,
+      required this.xBC,
+      required this.yB,
+      required this.yC,
+      required this.yD,
+      required this.xEH,
+      required this.yE,
+      required this.xFG,
+      required this.yF,
+      required this.yG,
+      required this.yH,
+      required this.animation,
+      required this.size,
+      required this.isStopFirst})
       : super(repaint: animation);
 
   final _paintFirstPolygon = Paint()
@@ -60,55 +208,6 @@ class _PlayYoutubePainter extends CustomPainter {
 
   // These still initialize again because CustomPainter doesn't hold their state like Statefull.
   // This behavior similiar to StatelessWidget although this class is CustomPainter.
-  late final paddingLeftRightPlay = 0.1907216495 * size;
-  late final xAD = Tween<double>(
-      begin: isStopFirst ? 0.0 : 0.1907216495 * size,
-      end: isStopFirst ? 0.1907216495 * size : 0.0);
-  late final yA = Tween<double>(
-      begin: isStopFirst ? 0.0 : 0.0618556701 * size,
-      end: isStopFirst ? 0.0618556701 * size : 0.0);
-  late final xBC = Tween<double>(
-      begin: isStopFirst
-          ? .456903039837 * size
-          : 0.1237113402 * size + paddingLeftRightPlay,
-      end: isStopFirst
-          ? 0.1237113402 * size + paddingLeftRightPlay
-          : .456903039837 * size);
-  late final yB = Tween<double>(
-      begin: isStopFirst ? .25 * size : 0.0618556701 * size,
-      end: isStopFirst ? 0.0618556701 * size : .25 * size);
-  late final yC = Tween<double>(
-      begin: isStopFirst ? .75 * size : 0.9381443299 * size,
-      end: isStopFirst ? 0.9381443299 * size : .75 * size);
-  late final yD = Tween<double>(
-      begin: isStopFirst ? size : 0.9381443299 * size,
-      end: isStopFirst ? 0.9381443299 * size : size);
-  late final xEH = Tween<double>(
-      begin: isStopFirst
-          ? .456903039837 * size - .2
-          : 0.4948453608 * size + paddingLeftRightPlay,
-      end: isStopFirst
-          ? 0.4948453608 * size + paddingLeftRightPlay
-          : .456903039837 * size - .2);
-  late final yE = Tween<double>(
-      begin: isStopFirst ? .25 * size : 0.0618556701 * size,
-      end: isStopFirst ? 0.0618556701 * size : .25 * size);
-  late final xFG = Tween<double>(
-      begin: isStopFirst
-          ? (.456903039837 * size) * 2 - .2
-          : 0.618556701 * size + paddingLeftRightPlay,
-      end: isStopFirst
-          ? 0.618556701 * size + paddingLeftRightPlay
-          : (.456903039837 * size) * 2 - .2);
-  late final yF = Tween<double>(
-      begin: isStopFirst ? .5 * size : 0.0618556701 * size,
-      end: isStopFirst ? 0.0618556701 * size : .5 * size);
-  late final yG = Tween<double>(
-      begin: isStopFirst ? .5 * size : 0.9381443299 * size,
-      end: isStopFirst ? 0.9381443299 * size : .5 * size);
-  late final yH = Tween<double>(
-      begin: isStopFirst ? .75 * size : 0.9381443299 * size,
-      end: isStopFirst ? 0.9381443299 * size : .75 * size);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -161,27 +260,27 @@ class _PlayYoutubePainter extends CustomPainter {
 // Stop
 // xA = 0;
 // yA = 0;
-// xB = .456903039837 * size.height;
-// yB = .25 * size.height;
-// yC = .75 * size.height;
+// xB = .456903039837 * widget.size.height;
+// yB = .25 * widget.size.height;
+// yC = .75 * widget.size.height;
 // yD = size.height;
 // xE = xB;
 // yE = yB;
 // xF = xB * 2;
-// yF = .5 * size.height;
+// yF = .5 * widget.size.height;
 // yG = yF;
 // yH = yC;
 // Play
-//   double paddingLeftRightPlay = 0.1907216495 * size.height;
+//   double paddingLeftRightPlay = 0.1907216495 * widget.size.height;
 //   xA = paddingLeftRightPlay;
-//   yA = 0.0618556701 * size.height;
-//   xB = 0.1237113402 * size.height + paddingLeftRightPlay;
+//   yA = 0.0618556701 * widget.size.height;
+//   xB = 0.1237113402 * widget.size.height + paddingLeftRightPlay;
 //   yB = yA;
-//   yC = 0.9381443299 * size.height;
+//   yC = 0.9381443299 * widget.size.height;
 //   yD = yC;
-//   xE = 0.4948453608 * size.height + paddingLeftRightPlay;
+//   xE = 0.4948453608 * widget.size.height + paddingLeftRightPlay;
 //   yE = yA;
-//   xF = 0.618556701 * size.height + paddingLeftRightPlay;
+//   xF = 0.618556701 * widget.size.height + paddingLeftRightPlay;
 //   yF = yE;
 //   yG = yC;
 //   yH = yG

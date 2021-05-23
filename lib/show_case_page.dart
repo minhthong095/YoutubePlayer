@@ -10,16 +10,19 @@ class _ShowCasePageState extends State<ShowCasePage> {
   bool isStop = true;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          isStop = !isStop;
-        });
-      },
-      child: Scaffold(
-          backgroundColor: Colors.black,
-          body: SafeArea(
-            child: Center(
+    return Scaffold(
+        backgroundColor: Colors.black,
+        body: SafeArea(
+          child: Center(
+            child: GestureDetector(
+              onTap: () {
+                // YoutubePage.go(
+                //     context: context,
+                //     link: 'https://www.youtube.com/watch?v=JFm7YDVlqnI');
+                setState(() {
+                  isStop = !isStop;
+                });
+              },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -33,14 +36,22 @@ class _ShowCasePageState extends State<ShowCasePage> {
                   SizedBox(
                     height: 100,
                   ),
-                  PlayButtonYoutube(
-                    isStop: isStop,
-                    size: 100,
-                  )
+                  PlayButtonYoutube(isStop: isStop, size: 60)
+                  // RipplePlay(
+                  //   onTap: () {
+                  //     setState(() {
+                  //       isStop = !isStop;
+                  //     });
+                  //   },
+                  //   child: PlayButtonYoutube(isStop: isStop, size: 60),
+                  // )
+                  // CustomiseRipplePlay()
                 ],
               ),
             ),
-          )),
-    );
+          ),
+        ));
   }
 }
+
+// Laugh now cry later: 'https://www.youtube.com/watch?v=JFm7YDVlqnI'
