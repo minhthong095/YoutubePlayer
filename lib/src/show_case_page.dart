@@ -18,7 +18,7 @@ class _ShowCasePageState extends State<ShowCasePage> {
               onTap: () {
                 YoutubePage.go(
                     context: context,
-                    link: 'https://www.youtube.com/watch?v=uxpDa-c-4Mc');
+                    link: 'https://www.youtube.com/watch?v=ApXoWvfEYVU');
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -41,6 +41,9 @@ class _ShowCasePageState extends State<ShowCasePage> {
   }
 }
 
+// Sunflower: 'https://www.youtube.com/watch?v=ApXoWvfEYVU'
+// Ni**as In Paris: 'https://www.youtube.com/watch?v=gG_dA32oH44'
+// Over now 'https://www.youtube.com/watch?v=OLT-GIBxzcc' (Vertical)
 // Hotline Bling: 'https://www.youtube.com/watch?v=uxpDa-c-4Mc'
 // Laugh now cry later: 'https://www.youtube.com/watch?v=JFm7YDVlqnI'
 // Teleports behind you: 'https://www.youtube.com/watch?v=0MW0mDZysxc'
