@@ -110,7 +110,7 @@ class _YoutubePageState extends State<YoutubePage> {
                               child: Padding(
                                 padding: const EdgeInsets.all(4.0),
                                 child: PlayButtonYoutube(
-                                    isStop: state is StatePause, size: 10),
+                                    isStop: state is StatePause, size: 60),
                               ),
                             ),
                           ));
@@ -148,7 +148,7 @@ class _YoutubePageState extends State<YoutubePage> {
                           children: [
                             Padding(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: kPaddingLeftRight),
+                                  vertical: 24, horizontal: kPaddingLeftRight),
                               child: Text(
                                 data.title,
                                 style: TextStyle(

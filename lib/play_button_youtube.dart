@@ -14,19 +14,20 @@ class _PlayButtonYoutubeState extends State<PlayButtonYoutube>
     with TickerProviderStateMixin {
   late final _paddingButton = .2 * widget.size;
   late final double sizePlay = widget.size - _paddingButton * 2;
-  late final _animationControllerPlay =
-      AnimationController(vsync: this, duration: Duration(milliseconds: 200));
+  late final _animationControllerPlay = AnimationController(
+      vsync: this, duration: Duration(milliseconds: 140)); // 1750
   late final AnimationController _animationControllerBorder =
-      AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+      AnimationController(
+          vsync: this, duration: Duration(milliseconds: 240)); // 3000
   late final AnimationController _animationControllerCircle =
-      AnimationController(vsync: this, duration: Duration(milliseconds: 400));
+      AnimationController(
+          vsync: this, duration: Duration(milliseconds: 200)); // 2500
   late final Animation<Color?> _animationBorder = TweenSequence([
     TweenSequenceItem(
         tween: ColorTween(begin: Colors.transparent, end: Color(0x45ffffff)),
         weight: 50),
     TweenSequenceItem(
-        tween: ColorTween(begin: Color(0x45ffffff), end: Colors.transparent)
-            .chain(CurveTween(curve: Curves.ease)),
+        tween: ColorTween(begin: Color(0x45ffffff), end: Colors.transparent),
         weight: 50)
   ]).animate(_animationControllerBorder);
   late final Animation<Color?> _animationCircle = TweenSequence([
