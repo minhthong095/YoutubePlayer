@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 const _kBorderWidthRipple = 1.5;
-const _kPaddingButton = 12.0;
 
 class PlayButtonYoutube extends StatefulWidget {
   final double size;
@@ -13,9 +12,10 @@ class PlayButtonYoutube extends StatefulWidget {
 
 class _PlayButtonYoutubeState extends State<PlayButtonYoutube>
     with TickerProviderStateMixin {
-  late final double sizePlay = widget.size - _kPaddingButton * 2;
+  late final _paddingButton = .2 * widget.size;
+  late final double sizePlay = widget.size - _paddingButton * 2;
   late final _animationControllerPlay =
-      AnimationController(vsync: this, duration: Duration(milliseconds: 100));
+      AnimationController(vsync: this, duration: Duration(milliseconds: 200));
   late final AnimationController _animationControllerBorder =
       AnimationController(vsync: this, duration: Duration(milliseconds: 500));
   late final AnimationController _animationControllerCircle =
@@ -142,8 +142,8 @@ class _PlayButtonYoutubeState extends State<PlayButtonYoutube>
             ),
           ),
           Positioned(
-            left: _kPaddingButton,
-            top: _kPaddingButton,
+            left: _paddingButton,
+            top: _paddingButton,
             child: CustomPaint(
               painter: _PlayYoutubePainter(
                   xAD: xAD,
@@ -204,6 +204,8 @@ class _PlayYoutubePainter extends CustomPainter {
       required this.isStopFirst})
       : super(repaint: animation);
 
+  // These still initialize again because CustomPainter doesn't hold their state like Statefull.
+  // This behavior similiar to StatelessWidget although this class is CustomPainter.
   final _paintFirstPolygon = Paint()
     ..style = PaintingStyle.fill
     ..color = Colors.white;
@@ -211,9 +213,6 @@ class _PlayYoutubePainter extends CustomPainter {
   final _paintSecondPolygon = Paint()
     ..style = PaintingStyle.fill
     ..color = Colors.white;
-
-  // These still initialize again because CustomPainter doesn't hold their state like Statefull.
-  // This behavior similiar to StatelessWidget although this class is CustomPainter.
 
   @override
   void paint(Canvas canvas, Size size) {

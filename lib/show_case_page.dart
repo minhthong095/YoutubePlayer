@@ -36,7 +36,7 @@ class _ShowCasePageState extends State<ShowCasePage> {
                   SizedBox(
                     height: 100,
                   ),
-                  PlayButtonYoutube(isStop: isStop, size: 60)
+                  PlayButtonYoutube(isStop: isStop, size: 200)
                   // RipplePlay(
                   //   onTap: () {
                   //     setState(() {
