@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 const _kBorderWidthRipple = 1.5;
+const _kPaddingButton = 12.0;
 
 class PlayButtonYoutube extends StatefulWidget {
   final double size;
@@ -12,8 +13,9 @@ class PlayButtonYoutube extends StatefulWidget {
 
 class _PlayButtonYoutubeState extends State<PlayButtonYoutube>
     with TickerProviderStateMixin {
-  late final _animationController =
-      AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+  late final double sizePlay = widget.size - _kPaddingButton * 2;
+  late final _animationControllerPlay =
+      AnimationController(vsync: this, duration: Duration(milliseconds: 100));
   late final AnimationController _animationControllerBorder =
       AnimationController(vsync: this, duration: Duration(milliseconds: 500));
   late final AnimationController _animationControllerCircle =
@@ -36,68 +38,68 @@ class _PlayButtonYoutubeState extends State<PlayButtonYoutube>
         weight: 50)
   ]).animate(_animationControllerCircle);
   late final _isStop = widget.isStop;
-  late final paddingLeftRightPlay = 0.1907216495 * widget.size;
+  late final paddingLeftRightPlay = 0.1907216495 * sizePlay;
   late final xAD = Tween<double>(
-      begin: _isStop ? 0.0 : 0.1907216495 * widget.size,
-      end: _isStop ? 0.1907216495 * widget.size : 0.0);
+      begin: _isStop ? 5.0 : 0.1907216495 * sizePlay,
+      end: _isStop ? 0.1907216495 * sizePlay : 0.0);
   late final yA = Tween<double>(
-      begin: _isStop ? 0.0 : 0.0618556701 * widget.size,
-      end: _isStop ? 0.0618556701 * widget.size : 0.0);
+      begin: _isStop ? 0.0 : 0.0618556701 * sizePlay,
+      end: _isStop ? 0.0618556701 * sizePlay : 0.0);
   late final xBC = Tween<double>(
       begin: _isStop
-          ? .456903039837 * widget.size
-          : 0.1237113402 * widget.size + paddingLeftRightPlay,
+          ? .456903039837 * sizePlay + 5
+          : 0.1237113402 * sizePlay + paddingLeftRightPlay,
       end: _isStop
-          ? 0.1237113402 * widget.size + paddingLeftRightPlay
-          : .456903039837 * widget.size);
+          ? 0.1237113402 * sizePlay + paddingLeftRightPlay
+          : .456903039837 * sizePlay);
   late final yB = Tween<double>(
-      begin: _isStop ? .25 * widget.size : 0.0618556701 * widget.size,
-      end: _isStop ? 0.0618556701 * widget.size : .25 * widget.size);
+      begin: _isStop ? .25 * sizePlay : 0.0618556701 * sizePlay,
+      end: _isStop ? 0.0618556701 * sizePlay : .25 * sizePlay);
   late final yC = Tween<double>(
-      begin: _isStop ? .75 * widget.size : 0.9381443299 * widget.size,
-      end: _isStop ? 0.9381443299 * widget.size : .75 * widget.size);
+      begin: _isStop ? .75 * sizePlay : 0.9381443299 * sizePlay,
+      end: _isStop ? 0.9381443299 * sizePlay : .75 * sizePlay);
   late final yD = Tween<double>(
-      begin: _isStop ? widget.size : 0.9381443299 * widget.size,
-      end: _isStop ? 0.9381443299 * widget.size : widget.size);
+      begin: _isStop ? sizePlay : 0.9381443299 * sizePlay,
+      end: _isStop ? 0.9381443299 * sizePlay : sizePlay);
   late final xEH = Tween<double>(
       begin: _isStop
-          ? .456903039837 * widget.size - .2
-          : 0.4948453608 * widget.size + paddingLeftRightPlay,
+          ? (.456903039837 * sizePlay - .2) + 5
+          : 0.4948453608 * sizePlay + paddingLeftRightPlay,
       end: _isStop
-          ? 0.4948453608 * widget.size + paddingLeftRightPlay
-          : .456903039837 * widget.size - .2);
+          ? 0.4948453608 * sizePlay + paddingLeftRightPlay
+          : .456903039837 * sizePlay - .2);
   late final yE = Tween<double>(
-      begin: _isStop ? .25 * widget.size : 0.0618556701 * widget.size,
-      end: _isStop ? 0.0618556701 * widget.size : .25 * widget.size);
+      begin: _isStop ? .25 * sizePlay : 0.0618556701 * sizePlay,
+      end: _isStop ? 0.0618556701 * sizePlay : .25 * sizePlay);
   late final xFG = Tween<double>(
       begin: _isStop
-          ? (.456903039837 * widget.size) * 2 - .2
-          : 0.618556701 * widget.size + paddingLeftRightPlay,
+          ? ((.456903039837 * sizePlay) * 2 - .2) + 5
+          : 0.618556701 * sizePlay + paddingLeftRightPlay,
       end: _isStop
-          ? 0.618556701 * widget.size + paddingLeftRightPlay
-          : (.456903039837 * widget.size) * 2 - .2);
+          ? 0.618556701 * sizePlay + paddingLeftRightPlay
+          : (.456903039837 * sizePlay) * 2 - .2);
   late final yF = Tween<double>(
-      begin: _isStop ? .5 * widget.size : 0.0618556701 * widget.size,
-      end: _isStop ? 0.0618556701 * widget.size : .5 * widget.size);
+      begin: _isStop ? .5 * sizePlay : 0.0618556701 * sizePlay,
+      end: _isStop ? 0.0618556701 * sizePlay : .5 * sizePlay);
   late final yG = Tween<double>(
-      begin: _isStop ? .5 * widget.size : 0.9381443299 * widget.size,
-      end: _isStop ? 0.9381443299 * widget.size : .5 * widget.size);
+      begin: _isStop ? .5 * sizePlay : 0.9381443299 * sizePlay,
+      end: _isStop ? 0.9381443299 * sizePlay : .5 * sizePlay);
   late final yH = Tween<double>(
-      begin: _isStop ? .75 * widget.size : 0.9381443299 * widget.size,
-      end: _isStop ? 0.9381443299 * widget.size : .75 * widget.size);
+      begin: _isStop ? .75 * sizePlay : 0.9381443299 * sizePlay,
+      end: _isStop ? 0.9381443299 * sizePlay : .75 * sizePlay);
 
   @override
   void dispose() {
-    _animationController.dispose();
+    _animationControllerPlay.dispose();
     super.dispose();
   }
 
   @override
   void didUpdateWidget(covariant PlayButtonYoutube oldWidget) {
-    if (_animationController.isDismissed) {
-      _animationController.forward();
-    } else if (_animationController.isCompleted) {
-      _animationController.reverse();
+    if (_animationControllerPlay.isDismissed) {
+      _animationControllerPlay.forward();
+    } else if (_animationControllerPlay.isCompleted) {
+      _animationControllerPlay.reverse();
     }
     _animationControllerBorder.reset();
     _animationControllerCircle.reset();
@@ -108,57 +110,61 @@ class _PlayButtonYoutubeState extends State<PlayButtonYoutube>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Positioned.fill(
-          child: AnimatedBuilder(
-            animation: _animationControllerBorder,
-            builder: (_, __) => DecoratedBox(
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                      color: _animationBorder.value!,
-                      width: _kBorderWidthRipple)),
+    return SizedBox(
+      width: widget.size,
+      height: widget.size,
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: AnimatedBuilder(
+              animation: _animationControllerBorder,
+              builder: (_, __) => DecoratedBox(
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                        color: _animationBorder.value!,
+                        width: _kBorderWidthRipple)),
+              ),
             ),
           ),
-        ),
-        Positioned(
-          left: _kBorderWidthRipple,
-          right: _kBorderWidthRipple,
-          top: _kBorderWidthRipple,
-          bottom: _kBorderWidthRipple,
-          child: AnimatedBuilder(
-            animation: _animationControllerCircle,
-            builder: (_, __) => DecoratedBox(
-                decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: _animationCircle.value,
-            )),
+          Positioned(
+            left: _kBorderWidthRipple,
+            right: _kBorderWidthRipple,
+            top: _kBorderWidthRipple,
+            bottom: _kBorderWidthRipple,
+            child: AnimatedBuilder(
+              animation: _animationControllerCircle,
+              builder: (_, __) => DecoratedBox(
+                  decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: _animationCircle.value,
+              )),
+            ),
           ),
-        ),
-        SizedBox(
-          width: widget.size,
-          height: widget.size,
-          child: CustomPaint(
-            painter: _PlayYoutubePainter(
-                xAD: xAD,
-                yA: yA,
-                xBC: xBC,
-                yB: yB,
-                yC: yC,
-                yD: yD,
-                xEH: xEH,
-                yE: yE,
-                xFG: xFG,
-                yF: yF,
-                yG: yG,
-                yH: yH,
-                isStopFirst: _isStop,
-                size: widget.size,
-                animation: _animationController),
+          Positioned(
+            left: _kPaddingButton,
+            top: _kPaddingButton,
+            child: CustomPaint(
+              painter: _PlayYoutubePainter(
+                  xAD: xAD,
+                  yA: yA,
+                  xBC: xBC,
+                  yB: yB,
+                  yC: yC,
+                  yD: yD,
+                  xEH: xEH,
+                  yE: yE,
+                  xFG: xFG,
+                  yF: yF,
+                  yG: yG,
+                  yH: yH,
+                  isStopFirst: _isStop,
+                  size: sizePlay,
+                  animation: _animationControllerPlay),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -260,27 +266,27 @@ class _PlayYoutubePainter extends CustomPainter {
 // Stop
 // xA = 0;
 // yA = 0;
-// xB = .456903039837 * widget.size.height;
-// yB = .25 * widget.size.height;
-// yC = .75 * widget.size.height;
+// xB = .456903039837 * sizePlay.height;
+// yB = .25 * sizePlay.height;
+// yC = .75 * sizePlay.height;
 // yD = size.height;
 // xE = xB;
 // yE = yB;
 // xF = xB * 2;
-// yF = .5 * widget.size.height;
+// yF = .5 * sizePlay.height;
 // yG = yF;
 // yH = yC;
 // Play
-//   double paddingLeftRightPlay = 0.1907216495 * widget.size.height;
+//   double paddingLeftRightPlay = 0.1907216495 * sizePlay.height;
 //   xA = paddingLeftRightPlay;
-//   yA = 0.0618556701 * widget.size.height;
-//   xB = 0.1237113402 * widget.size.height + paddingLeftRightPlay;
+//   yA = 0.0618556701 * sizePlay.height;
+//   xB = 0.1237113402 * sizePlay.height + paddingLeftRightPlay;
 //   yB = yA;
-//   yC = 0.9381443299 * widget.size.height;
+//   yC = 0.9381443299 * sizePlay.height;
 //   yD = yC;
-//   xE = 0.4948453608 * widget.size.height + paddingLeftRightPlay;
+//   xE = 0.4948453608 * sizePlay.height + paddingLeftRightPlay;
 //   yE = yA;
-//   xF = 0.618556701 * widget.size.height + paddingLeftRightPlay;
+//   xF = 0.618556701 * sizePlay.height + paddingLeftRightPlay;
 //   yF = yE;
 //   yG = yC;
 //   yH = yG
