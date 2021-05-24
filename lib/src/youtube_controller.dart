@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
-import 'package:youtube_player/youtube_page.dart';
+import 'package:youtube_player/src/youtube_page.dart';
 
 class YoutubePageController {
   final _yt = YoutubeExplode();

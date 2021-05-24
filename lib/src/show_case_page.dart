@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:youtube_player/youtube_page.dart';
+import 'package:youtube_player/src/youtube_page.dart';
 
 class ShowCasePage extends StatefulWidget {
   @override

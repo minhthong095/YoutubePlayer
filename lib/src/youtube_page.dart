@@ -4,9 +4,9 @@ import 'dart:math' as math;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
-import 'package:youtube_player/play_button_youtube.dart';
-import 'package:youtube_player/ripple_play.dart';
-import 'package:youtube_player/youtube_controller.dart';
+import 'package:youtube_player/src/play_button_youtube.dart';
+import 'package:youtube_player/src/ripple_play.dart';
+import 'package:youtube_player/src/youtube_controller.dart';
 
 const kHealthBarHeight = 44.0;
 const kSunSize = 17.0;

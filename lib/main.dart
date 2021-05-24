@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:youtube_player/ripple_play.dart';
-import 'package:youtube_player/show_case_page.dart';
+import 'package:youtube_player/src/ripple_play.dart';
+import 'package:youtube_player/src/show_case_page.dart';
 
 void main() {
   runApp(MyApp());
