@@ -97,15 +97,17 @@ class _PlayButtonYoutubeState extends State<PlayButtonYoutube>
 
   @override
   void didUpdateWidget(covariant PlayButtonYoutube oldWidget) {
-    if (_animationControllerPlay.isDismissed) {
-      _animationControllerPlay.forward();
-    } else if (_animationControllerPlay.isCompleted) {
-      _animationControllerPlay.reverse();
+    if (oldWidget.isStop != widget.isStop) {
+      if (_animationControllerPlay.isDismissed) {
+        _animationControllerPlay.forward();
+      } else if (_animationControllerPlay.isCompleted) {
+        _animationControllerPlay.reverse();
+      }
+      _animationControllerBorder.reset();
+      _animationControllerCircle.reset();
+      _animationControllerBorder.forward();
+      _animationControllerCircle.forward();
     }
-    _animationControllerBorder.reset();
-    _animationControllerCircle.reset();
-    _animationControllerBorder.forward();
-    _animationControllerCircle.forward();
     super.didUpdateWidget(oldWidget);
   }
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:youtube_player/play_button_youtube.dart';
+import 'package:youtube_player/youtube_page.dart';
 
 class ShowCasePage extends StatefulWidget {
   @override
@@ -16,18 +16,15 @@ class _ShowCasePageState extends State<ShowCasePage> {
           child: Center(
             child: GestureDetector(
               onTap: () {
-                // YoutubePage.go(
-                //     context: context,
-                //     link: 'https://www.youtube.com/watch?v=JFm7YDVlqnI');
-                setState(() {
-                  isStop = !isStop;
-                });
+                YoutubePage.go(
+                    context: context,
+                    link: 'https://www.youtube.com/watch?v=0MW0mDZysxc');
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'RUN\nPLAYER\nPAGE',
+                    'GO\nPLAYER\nPAGE',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 40,
@@ -36,16 +33,6 @@ class _ShowCasePageState extends State<ShowCasePage> {
                   SizedBox(
                     height: 100,
                   ),
-                  PlayButtonYoutube(isStop: isStop, size: 200)
-                  // RipplePlay(
-                  //   onTap: () {
-                  //     setState(() {
-                  //       isStop = !isStop;
-                  //     });
-                  //   },
-                  //   child: PlayButtonYoutube(isStop: isStop, size: 60),
-                  // )
-                  // CustomiseRipplePlay()
                 ],
               ),
             ),
@@ -55,3 +42,4 @@ class _ShowCasePageState extends State<ShowCasePage> {
 }
 
 // Laugh now cry later: 'https://www.youtube.com/watch?v=JFm7YDVlqnI'
+// Teleports behind you: 'https://www.youtube.com/watch?v=0MW0mDZysxc'

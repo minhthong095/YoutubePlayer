@@ -71,7 +71,7 @@ class YoutubePageController {
         final manifest = await _yt.videos.streamsClient
             .getManifest(Uri.parse(link).queryParameters['v']);
 
-        final video = (manifest.video.toList()
+        final video = (manifest.muxed.toList()
               ..sort((a, b) => int.parse(b.videoQualityLabel
                       .substring(0, b.videoQualityLabel.length - 1))
                   .compareTo(int.parse(a.videoQualityLabel
@@ -140,7 +140,7 @@ class YoutubePageController {
       if (!_isPlaying) {
         stateVideoCurerntTimeTitle.value = clear(currentTime);
         stateVideoData.value?.videoPlayerController.play().then((_) {
-          Future.delayed(Duration(milliseconds: 500))
+          Future.delayed(Duration(milliseconds: 300))
               .then((_) => stateVideoData.value?.videoPlayerController.pause());
         });
       }

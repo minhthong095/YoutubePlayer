@@ -100,18 +100,17 @@ class _YoutubePageState extends State<YoutubePage> {
                     ),
                     ValueListenableBuilder<StatePlayButton>(
                         valueListenable: _controller.statePlayButton,
-                        builder: (_, state, __) {
+                        child: SizedBox.shrink(),
+                        builder: (_, state, shrink) {
+                          if (state is StateHide) return shrink!;
                           return Positioned.fill(
                               child: Center(
-                            child: RipplePlay(
+                            child: GestureDetector(
                               onTap: () {
                                 _controller.clickPlayButton();
                               },
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: PlayButtonYoutube(
-                                    isStop: state is StatePause, size: 60),
-                              ),
+                              child: PlayButtonYoutube(
+                                  isStop: state is StatePause, size: 60),
                             ),
                           ));
                         }),
