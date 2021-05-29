@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:youtube_player/src/youtube_page.dart';
+import 'package:youtube_player/src/play_button_youtube.dart';
 
 class ShowCasePage extends StatefulWidget {
   @override
@@ -16,24 +16,13 @@ class _ShowCasePageState extends State<ShowCasePage> {
           child: Center(
             child: GestureDetector(
               onTap: () {
-                YoutubePage.go(
-                    context: context,
-                    link: 'https://www.youtube.com/watch?v=ApXoWvfEYVU');
+                setState(() {
+                  isStop = !isStop;
+                });
               },
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'GO\nPLAYER\nPAGE',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 100,
-                  ),
-                ],
+              child: PlayButtonYoutube(
+                isStop: isStop,
+                size: 300,
               ),
             ),
           ),
