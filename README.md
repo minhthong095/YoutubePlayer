@@ -7,5 +7,5 @@
 ## Components
 
 * Flutter 2.2.0
-* video_player:
-* youtube_explode_dart:
+* video_player
+* youtube_explode_dart
